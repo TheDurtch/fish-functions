@@ -1,8 +1,10 @@
 function post-kernel-update
+##This is only really useful for people that use both OpenSUSE Tumbleweed and NVIDIA GPU.
 set CPU_COUNT (math (cat /proc/cpuinfo | grep processor | wc -l)+1)
 echo "Initilize sudo"
 sudo echo "sudo initilized"
 cd /kernel-update-stuff/
+##If you don't have atop or don't want to install netatop kernel module then you can start your cut here.
 set natopver1 (curl -s http://www.atoptool.nl/downloadnetatop.php  | grep "netatop-0...tar.gz" | sed -n '1p' | cut -d '"' -f2 | cut -d "." -f1-2 | cut -d "/" -f2)
 set natopver2 (curl -s http://www.atoptool.nl/downloadnetatop.php  | grep "netatop-0...tar.gz" | sed -n '2p' | cut -d '"' -f2 | cut -d "." -f1-2 | cut -d "/" -f2)
 set natopver3 (curl -s http://www.atoptool.nl/downloadnetatop.php  | grep "netatop-0...tar.gz" | sed -n '3p' | cut -d '"' -f2 | cut -d "." -f1-2 | cut -d "/" -f2)
@@ -34,6 +36,7 @@ sudo chown -Rc kate:users $natopver
 cd /kernel-update-stuff/$natopver
 make -j$CPU_COUNT
 sudo make install
+##END CUT HERE
 cd /kernel-update-stuff/nvidia-drivers/
 curl -s http://www.nvidia.com/object/linux-amd64-display-archive.html > /tmpfs/NVIDIA_LINUX_SOUCE_HTML
 set nvidiaver1 (cat /tmpfs/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '3p' | cut -d ':' -f3 | cut -d ' ' -f2 | cut -d '<' -f1)
