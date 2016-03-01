@@ -61,7 +61,7 @@ echo "Enter 2 if you want $nvidiaver2"
 echo "Enter 3 if you want $nvidiaver3"
 echo "Enter 9 if you don't want to do anything"
 read prompt3
-echo "last chance to hit CTRL+C"
+echo "last chance to hit CTRL+C hit enter to continue"
 read _null_ctrl_c_
 echo "Initilizing sudo"
 sudo echo "sudo initialized"
