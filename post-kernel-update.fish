@@ -34,6 +34,25 @@ echo "Enter 1 if you want to view the changelog for version $nvidiaver1"
 echo "Enter 2 if you want to view the changelog for version $nvidiaver2"
 echo "Enter 3 if you want to view the changelog for version $nvidiaver3"
 read prompt2
+if [ "$prompt2" = "1" ]
+echo $nvidiachangelogurl1
+curl -s $nvidiachangelogurl1 | grep 'ul type="disc"' | html2text -utf8
+end
+
+if [ "$prompt2" = "2" ]
+echo $nvidiachangelogurl2
+curl -s $nvidiachangelogurl2 | grep 'ul type="disc"' | html2text -utf8
+end
+
+if [ "$prompt2" = "3" ]
+echo $nvidiachangelogurl3
+curl -s $nvidiachangelogurl3 | grep 'ul type="disc"' | html2text -utf8
+end
+
+if [ "$prompt2" = "0" ]
+echo "Oh I see how it is...
+well then..."
+end
 
 echo "Enter 0 if you $nvidiaver0 is the latest version"
 echo "Enter 1 if you want $nvidiaver1"
@@ -74,26 +93,6 @@ make -j$CPU_COUNT
 sudo make install
 
 cd /kernel-update-stuff/nvidia-drivers/
-
-if [ "$prompt2" = "1" ]
-echo $nvidiachangelogurl1
-curl -s $nvidiachangelogurl1 | grep 'ul type="disc"' | html2text -utf8
-end
-
-if [ "$prompt2" = "2" ]
-echo $nvidiachangelogurl2
-curl -s $nvidiachangelogurl2 | grep 'ul type="disc"' | html2text -utf8
-end
-
-if [ "$prompt2" = "3" ]
-echo $nvidiachangelogurl3
-curl -s $nvidiachangelogurl3 | grep 'ul type="disc"' | html2text -utf8
-end
-
-if [ "$prompt2" = "0" ]
-echo "Oh I see how it is...
-well then..."
-end
 
 if [ "$prompt3" = "1" ]
 set nvidiaver $nvidiaver1
