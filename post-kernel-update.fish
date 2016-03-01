@@ -24,6 +24,7 @@ set nvidiaver2 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Dow
 set nvidiachangelogurl2 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '4p' | cut -d '"' -f4)
 set nvidiaver3 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '5p' | cut -d ':' -f3 | cut -d ' ' -f2 | cut -d '<' -f1)
 set nvidiachangelogurl3 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '5p' | cut -d '"' -f4)
+cd /kernel-update-stuff/nvidia-drivers/
 set nvidiaver0 (ls -la | awk '{print $9}' | grep NVIDIA-Linux-x86_64 | cut -d "-" -f4|cut -d "." -f1-2)
 echo "You have versions $nvidiaver1, $nvidiaver2, and $nvidiaver3 available online.
 You have version $nvidiaver0 on your computer already.
@@ -60,6 +61,10 @@ echo "Enter 2 if you want $nvidiaver2"
 echo "Enter 3 if you want $nvidiaver3"
 echo "Enter 9 if you don't want to do anything"
 read prompt3
+echo "last chance to hit CTRL+C"
+read _null_ctrl_c_
+echo "Initilizing sudo"
+sudo echo "sudo initialized"
 #############################
 if [ "$prompt1" = "1" ]
 set natopver $natopver1
