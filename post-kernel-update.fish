@@ -28,7 +28,7 @@ curl -s $nvidiachangelogurl3 > /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG3
 
 set nvidiaver1 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG1 | html2text -utf8 | grep "Version" |cut -d ' ' -f11| cut -d ' ' -f1)
 set nvidiaver2 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG2 | html2text -utf8 | grep "Version" |cut -d ' ' -f11| cut -d ' ' -f1)
-set nvidiaver3 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG2 | html2text -utf8 | grep "Version" |cut -d ' ' -f11| cut -d ' ' -f1)
+set nvidiaver3 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG3 | html2text -utf8 | grep "Version" |cut -d ' ' -f11| cut -d ' ' -f1)
 cd /kernel-update-stuff/nvidia-drivers/
 set nvidiaver0 (ls -la | awk '{print $9}' | grep NVIDIA-Linux-x86_64 | cut -d "-" -f4|cut -d "." -f1-2)
 echo "You have versions $nvidiaver1, $nvidiaver2, and $nvidiaver3 available online.
