@@ -18,12 +18,17 @@ echo "Enter 0 if $natopver0 is the latest version"
 read prompt1
 
 curl -s http://www.nvidia.com/object/linux-amd64-display-archive.html > /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML
-set nvidiaver1 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '3p' | cut -d ':' -f3 | cut -d ' ' -f2 | cut -d '<' -f1)
+
 set nvidiachangelogurl1 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '3p' | cut -d '"' -f4)
-set nvidiaver2 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '4p' | cut -d ':' -f3 | cut -d ' ' -f2 | cut -d '<' -f1)
 set nvidiachangelogurl2 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '4p' | cut -d '"' -f4)
-set nvidiaver3 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '5p' | cut -d ':' -f3 | cut -d ' ' -f2 | cut -d '<' -f1)
 set nvidiachangelogurl3 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '5p' | cut -d '"' -f4)
+curl -s $nvidiachangelogurl1 > /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG1
+curl -s $nvidiachangelogurl2 > /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG2
+curl -s $nvidiachangelogurl3 > /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG3
+
+set nvidiaver1 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG1 | html2text -utf8 | grep "Version" |cut -d ' ' -f11| cut -d ' ' -f1)
+set nvidiaver2 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG2 | html2text -utf8 | grep "Version" |cut -d ' ' -f11| cut -d ' ' -f1)
+set nvidiaver3 (cat /kernel-update-stuff/tmp/NVIDIA_LINUX_SOUCE_HTML | grep "Download/" | sed -n '5p' | cut -d ':' -f3 | cut -d '<' -f1)
 cd /kernel-update-stuff/nvidia-drivers/
 set nvidiaver0 (ls -la | awk '{print $9}' | grep NVIDIA-Linux-x86_64 | cut -d "-" -f4|cut -d "." -f1-2)
 echo "You have versions $nvidiaver1, $nvidiaver2, and $nvidiaver3 available online.
@@ -37,17 +42,17 @@ echo "Enter 3 if you want to view the changelog for version $nvidiaver3"
 read prompt2
 if [ "$prompt2" = "1" ]
 echo $nvidiachangelogurl1
-curl -s $nvidiachangelogurl1 | grep 'ul type="disc"' | html2text -utf8
+cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG1 | grep 'ul type="disc"' | html2text -utf8
 end
 
 if [ "$prompt2" = "2" ]
 echo $nvidiachangelogurl2
-curl -s $nvidiachangelogurl2 | grep 'ul type="disc"' | html2text -utf8
+cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG2 | grep 'ul type="disc"' | html2text -utf8
 end
 
 if [ "$prompt2" = "3" ]
 echo $nvidiachangelogurl3
-curl -s $nvidiachangelogurl3 | grep 'ul type="disc"' | html2text -utf8
+cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG3 | grep 'ul type="disc"' | html2text -utf8
 end
 
 if [ "$prompt2" = "0" ]
