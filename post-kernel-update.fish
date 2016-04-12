@@ -99,6 +99,7 @@ if [ "$download_ATOP" = "0" ]
 end
 sudo chown -Rc $USER_GROUP $natopver
 cd /kernel-update-stuff/$natopver
+make clean
 make -j$CPU_COUNT
 sudo make install
 
