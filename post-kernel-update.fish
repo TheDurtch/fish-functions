@@ -42,17 +42,17 @@ echo "Enter 3 if you want to view the changelog for version $nvidiaver3"
 read prompt2
 if [ "$prompt2" = "1" ]
 echo $nvidiachangelogurl1
-cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG1 | grep 'ul type="disc"' | html2text -utf8
+cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG1 | grep '<ul><li>' | html2text -utf8
 end
 
 if [ "$prompt2" = "2" ]
 echo $nvidiachangelogurl2
-cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG2 | grep 'ul type="disc"' | html2text -utf8
+cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG2 | grep '<ul><li>' | html2text -utf8
 end
 
 if [ "$prompt2" = "3" ]
 echo $nvidiachangelogurl3
-cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG3 | grep 'ul type="disc"' | html2text -utf8
+cat /kernel-update-stuff/tmp/NVIDIA_LINUX_LOG3 | grep '<ul><li>' | html2text -utf8
 end
 
 if [ "$prompt2" = "0" ]
